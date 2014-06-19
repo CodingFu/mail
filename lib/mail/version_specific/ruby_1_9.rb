@@ -127,6 +127,10 @@ module Mail
       # Windows-1252 and alike
       when /Windows-?(.*)/i
         "Windows-#{$1}"
+      
+      # TODO: remove me as soon as ruby support for 1258 is implemented
+      when /Windows-1258/i
+        "Windows-1252"
 
       when /^8bit$/
         Encoding::ASCII_8BIT
