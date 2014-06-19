@@ -78,6 +78,9 @@ module Mail
       decoded.valid_encoding? ? decoded : decoded.encode("utf-16le", :invalid => :replace, :replace => "").encode("utf-8")
     rescue Encoding::UndefinedConversionError
       str.dup.force_encoding("utf-8")
+    rescue Encoding::ConverterNotFoundError
+      puts "Catched Encoding::ConverterNotFoundError. encoding to 1252"
+      str.dup.force_encoding("windows-1252").encode("utf-8")
     end
 
     def Ruby19.param_decode(str, encoding)
@@ -122,7 +125,7 @@ module Mail
         "Windows-#{$1}"
       
       # TODO: remove me as soon as ruby support for 1258 is implemented
-      when /Windows-1258/i
+      when /Windows-?1258/i
         "Windows-1252"
 
       when /^8bit$/
