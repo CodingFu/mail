@@ -129,7 +129,7 @@ module Mail
         "Windows-#{$1}"
       
       # TODO: remove me as soon as ruby support for 1258 is implemented
-      when /Windows-1258/i
+      when /Windows-?1258/i
         "Windows-1252"
 
       when /^8bit$/
